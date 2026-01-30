@@ -1,0 +1,229 @@
+:root {
+  --lcd-bg: #e88c1f;
+  --lcd-ink: #0d0d0d;
+  --lcd-dim: rgba(13, 13, 13, 0.2);
+  --border-radius: 12px;
+  --border-width: 3px;
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--lcd-bg);
+  color: var(--lcd-ink);
+  font-family: 'VT323', monospace;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+
+  25% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+
+  50% {
+    transform: translate(-5px, -5px) rotate(-5deg);
+  }
+
+  75% {
+    transform: translate(5px, -5px) rotate(5deg);
+  }
+}
+
+@keyframes flicker {
+
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    filter: brightness(0.5);
+  }
+}
+
+.app-container {
+  background-color: var(--lcd-bg);
+  color: var(--lcd-ink);
+  font-family: 'VT323', monospace;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 20%) 1fr minmax(300px, 20%);
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-m);
+  padding: var(--space-m);
+  height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-width) solid var(--lcd-ink);
+  padding-bottom: var(--space-s);
+  margin-bottom: var(--space-s);
+}
+
+.sidebar-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-bar {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--space-s);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(13, 13, 13, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  padding: var(--space-m);
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Game Controls Visibility */
+.mobile-controls {
+  display: none !important;
+}
+
+.desktop-hint {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .mobile-controls {
+    display: grid !important;
+  }
+
+  .desktop-hint {
+    display: none;
+  }
+
+  /* The following rules were restored */
+  .main-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto 1fr;
+    gap: var(--space-s);
+    padding: var(--space-s);
+    overflow-y: auto;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .header {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-s);
+  }
+
+  .main-content {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .sidebar-left {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .sidebar-right {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .nav-bar {
+    grid-column: 1;
+    grid-row: 5;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: stretch;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .nav-bar div {
+    flex-direction: column;
+  }
+
+  .header h1 {
+    font-size: 16px !important;
+  }
+}
